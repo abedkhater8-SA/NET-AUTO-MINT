@@ -1,6 +1,5 @@
 from device_utils import get_device_status
 
-
 routers = [
     {
         "device_type": "cisco_ios",
