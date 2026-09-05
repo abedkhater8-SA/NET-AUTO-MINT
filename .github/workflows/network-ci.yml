@@ -51,5 +51,9 @@ jobs:
           python -m pip install -r requirements-ci.txt
 
       - name: Run Pytest
+        env:
+          DEVICE_USERNAME: ${{ secrets.DEVICE_USERNAME }}
+          DEVICE_PASSWORD: ${{ secrets.DEVICE_PASSWORD }}
+          DEVICE_SECRET: ${{ secrets.DEVICE_SECRET }}
         run: |
           python -m pytest -v
