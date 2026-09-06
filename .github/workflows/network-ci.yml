@@ -42,8 +42,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-          cache: "pip"
-          cache-dependency-path: requirements-ci.txt
 
       - name: Install Dependencies
         run: |
@@ -56,4 +54,11 @@ jobs:
           DEVICE_PASSWORD: ${{ secrets.DEVICE_PASSWORD }}
           DEVICE_SECRET: ${{ secrets.DEVICE_SECRET }}
         run: |
-          python -m pytest -v
+          python -m pytest -v --junitxml=test-results.xml
+
+      - name: Upload Test Report
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-results
+          path: test-results.xml
