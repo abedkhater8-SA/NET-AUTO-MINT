@@ -55,7 +55,7 @@ jobs:
           DEVICE_SECRET: ${{ secrets.DEVICE_SECRET }}
         run: |
           python -m pytest \
-            --cov=src \
+            --cov=src.device_utils \
             --cov-report=term-missing \
             --junitxml=test-results.xml \
             -v
