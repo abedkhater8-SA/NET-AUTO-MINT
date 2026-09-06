@@ -48,13 +48,17 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements-ci.txt
 
-      - name: Run Pytest
+      - name: Run Pytest with Coverage
         env:
           DEVICE_USERNAME: ${{ secrets.DEVICE_USERNAME }}
           DEVICE_PASSWORD: ${{ secrets.DEVICE_PASSWORD }}
           DEVICE_SECRET: ${{ secrets.DEVICE_SECRET }}
         run: |
-          python -m pytest -v --junitxml=test-results.xml
+          python -m pytest \
+            --cov=src \
+            --cov-report=term-missing \
+            --junitxml=test-results.xml \
+            -v
 
       - name: Upload Test Report
         if: ${{ always() }}
