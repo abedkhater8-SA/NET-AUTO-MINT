@@ -1,0 +1,45 @@
+name: Network Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      change:
+        description: "Change to deploy"
+        required: true
+        type: choice
+        options:
+          - interface
+          - vlan
+          - bgp
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    environment:
+      name: eve-ng
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-ci.txt
+
+      - name: Deploy Network Change
+        env:
+          DEVICE_USERNAME: ${{ secrets.DEVICE_USERNAME }}
+          DEVICE_PASSWORD: ${{ secrets.DEVICE_PASSWORD }}
+          DEVICE_SECRET: ${{ secrets.DEVICE_SECRET }}
+        run: |
+          python src/deploy.py --change "${{ inputs.change }}"

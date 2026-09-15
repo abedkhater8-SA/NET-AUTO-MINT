@@ -1,0 +1,6 @@
+devices:
+  - device_type: cisco_ios
+    host: 10.1.1.96
+    commands:
+      - interface Loopback100
+      - description DEPLOYED_BY_CICD
