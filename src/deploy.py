@@ -6,7 +6,7 @@ from netmiko import ConnectHandler
 
 
 def load_change(change_type):
-    file_path = f"configs/{change_type}.yaml"
+    file_path = f"configs/{change_type}.yml"
 
     with open(file_path, encoding="utf-8") as file:
         return yaml.safe_load(file)
