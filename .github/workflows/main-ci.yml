@@ -1,0 +1,26 @@
+name: Main CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  call-network-ci:
+    uses: ./.github/workflows/reusable-network-ci.yml
+
+    with:
+      python-version: "3.12"
+
+    secrets:
+      DEVICE_USERNAME: ${{ secrets.DEVICE_USERNAME }}
+      DEVICE_PASSWORD: ${{ secrets.DEVICE_PASSWORD }}
+      DEVICE_SECRET: ${{ secrets.DEVICE_SECRET }}
+
+  show-result:
+    needs: call-network-ci
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Show CI Result
+        run: |
+          echo "CI result: ${{ needs.call-network-ci.outputs.ci-status }}"
