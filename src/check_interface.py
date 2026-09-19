@@ -2,7 +2,7 @@ from device_utils import get_interface_status, interface_is_healthy
 
 router1 = {
     "device_type": "cisco_ios",
-    "host": "10.1.1.96",
+    "host": "10.100.100.33",
     "username": "admin",
     "password": "Admin@123",
     "secret": "Admin@123",
