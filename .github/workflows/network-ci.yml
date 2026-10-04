@@ -16,7 +16,7 @@ permissions:
 
 concurrency:
   group: network-ci-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   lint:
